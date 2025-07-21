@@ -61,6 +61,15 @@ class _StealthEntryCardState extends State<StealthEntryCard> {
   }
 
   @override
+  void didUpdateWidget(StealthEntryCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.entry.text != widget.entry.text || oldWidget.entry.label != widget.entry.label) {
+      _labelController.text = widget.entry.label;
+      _textController.text = widget.entry.text;
+    }
+  }
+
+  @override
   void dispose() {
     _labelController.dispose();
     _textController.dispose();
