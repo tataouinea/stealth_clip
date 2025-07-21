@@ -150,11 +150,6 @@ class _StealthEntryCardState extends State<StealthEntryCard> {
                       },
                       tooltip: 'Copy to clipboard',
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.delete_outline),
-                      onPressed: () => provider.clearEntry(widget.index),
-                      tooltip: 'Clear value',
-                    ),
                   ],
                   IconButton(
                     icon: const Icon(Icons.edit),
