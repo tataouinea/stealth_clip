@@ -2,8 +2,6 @@
 
 ![App Demo](screencast.gif)
 
----
-
 # 🚀 Stealth Clip
 
 **Stealth Clip** is a unique Windows utility app designed for freelancers, streamers, and anyone who needs to keep sensitive text (like passwords) hidden from prying eyes—especially from screen capture software like Upwork's screenshot tool or streaming overlays.
@@ -64,8 +62,6 @@ This app was entirely built using **Claude Sonnet 3.5** with **GitHub Copilot** 
 
 ## 📄 License
 MIT License. See [LICENSE](LICENSE) for details.
-
----
 
 ## 💬 Feedback & Support
 If you find Stealth Clip useful, please star the repo and share your feedback!
