@@ -24,12 +24,6 @@ class StealthInput extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 16),
-            FilledButton.icon(
-              onPressed: provider.addNewEntry,
-              icon: const Icon(Icons.add),
-              label: const Text('Add New Entry'),
-            ),
           ],
         );
       },

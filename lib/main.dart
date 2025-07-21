@@ -78,6 +78,16 @@ class MainScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 24),
+                      Consumer<StealthTextProvider>(
+                        builder: (context, provider, child) {
+                          return FilledButton.icon(
+                            onPressed: provider.addNewEntry,
+                            icon: const Icon(Icons.add),
+                            label: const Text('Add New Entry'),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 24),
                     ],
                   ),
                 ),
