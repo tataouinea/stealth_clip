@@ -57,7 +57,7 @@ class _StealthEntryCardState extends State<StealthEntryCard> {
     super.initState();
     _labelController = TextEditingController(text: widget.entry.label);
     _textController = TextEditingController(text: widget.entry.text);
-    _showSecureMessage = widget.entry.text.isNotEmpty;
+    _showSecureMessage = false;
   }
 
   @override
