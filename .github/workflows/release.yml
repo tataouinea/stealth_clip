@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on version tags
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    permissions:
+      contents: write # Needed for creating releases
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Needed for changelog generation
+      
+      - name: Install conventional-changelog-cli
+        run: npm install -g conventional-changelog-cli
+      
+      - name: Generate changelog
+        run: |
+          conventional-changelog -p angular -i CHANGELOG.md -s -r 1
+        
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.0'
+          channel: 'stable'
+          cache: true
+      
+      - name: Get dependencies
+        run: flutter pub get
+        
+      - name: Enable windows build
+        run: flutter config --enable-windows-desktop
+      
+      - name: Build app
+        run: flutter build windows --release
+
+      - name: Create ZIP archive
+        run: |
+          Compress-Archive -Path "build/windows/x64/runner/Release/*" -DestinationPath "stealth_clip-windows.zip"
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: stealth_clip-windows.zip
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false
