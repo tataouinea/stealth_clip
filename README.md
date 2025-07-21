@@ -1,8 +1,6 @@
-# Stealth Clip
+# 🚀 Stealth Clip
 
 ![App Demo](screencast.gif)
-
-# 🚀 Stealth Clip
 
 **Stealth Clip** is a unique Windows utility app designed for freelancers, streamers, and anyone who needs to keep sensitive text (like passwords) hidden from prying eyes—especially from screen capture software like Upwork's screenshot tool or streaming overlays.
 
