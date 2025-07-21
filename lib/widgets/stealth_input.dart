@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 import '../providers/stealth_text_provider.dart';
 import '../services/secure_storage_service.dart';
 
@@ -49,12 +50,14 @@ class _StealthEntryCardState extends State<StealthEntryCard> {
   late TextEditingController _labelController;
   late TextEditingController _textController;
   bool _isEditing = false;
+  bool _showSecureMessage = false;
 
   @override
   void initState() {
     super.initState();
     _labelController = TextEditingController(text: widget.entry.label);
     _textController = TextEditingController(text: widget.entry.text);
+    _showSecureMessage = widget.entry.text.isNotEmpty;
   }
 
   @override
@@ -111,7 +114,17 @@ class _StealthEntryCardState extends State<StealthEntryCard> {
                         _labelController.text,
                         _textController.text,
                       );
-                      setState(() => _isEditing = false);
+                      setState(() {
+                        _isEditing = false;
+                        _showSecureMessage = true;
+                      });
+                      Timer(const Duration(seconds: 3), () {
+                        if (mounted) {
+                          setState(() {
+                            _showSecureMessage = false;
+                          });
+                        }
+                      });
                     },
                     child: const Text('Save'),
                   ),
@@ -157,7 +170,7 @@ class _StealthEntryCardState extends State<StealthEntryCard> {
                     ),
                 ],
               ),
-              if (hasValue)
+              if (hasValue && _showSecureMessage)
                 const Padding(
                   padding: EdgeInsets.only(top: 4),
                   child: Text(
