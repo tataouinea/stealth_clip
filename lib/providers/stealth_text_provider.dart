@@ -14,14 +14,6 @@ class StealthTextProvider extends ChangeNotifier {
   
   Future<void> _loadEntries() async {
     _entries = await _storage.getEntries();
-    if (_entries.isEmpty) {
-      // Add default entries
-      _entries = [
-        StealthEntry(label: 'Password', text: ''),
-        StealthEntry(label: 'API Key', text: ''),
-        StealthEntry(label: 'Secret Key', text: ''),
-      ];
-    }
     notifyListeners();
   }
 
