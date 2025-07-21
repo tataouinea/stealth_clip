@@ -10,8 +10,9 @@ void main() async {
   // Initialize window settings
   await windowManager.ensureInitialized();
   await windowManager.setTitle('Stealth Clip');
-  await windowManager.setMinimumSize(const Size(400, 300));
-  await windowManager.setSize(const Size(500, 400));
+  await windowManager.setMinimumSize(const Size(400, 600));
+  await windowManager.setSize(const Size(400, 600));
+  await windowManager.setResizable(false);
 
   runApp(const MyApp());
 }
@@ -50,35 +51,45 @@ class MainScreen extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 400),
           child: Card(
             margin: const EdgeInsets.all(16),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    Icons.security,
-                    size: 48,
-                    color: Colors.indigoAccent,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    children: [
+                      const Icon(
+                        Icons.security,
+                        size: 48,
+                        color: Colors.indigoAccent,
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Stealth Clip',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Securely store and copy sensitive text',
+                        style: TextStyle(
+                          color: Colors.grey.shade400,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Stealth Clip',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                ),
+                const Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(24, 0, 24, 24),
+                      child: StealthInput(),
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Securely store and copy sensitive text',
-                    style: TextStyle(
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  const StealthInput(),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

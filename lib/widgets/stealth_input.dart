@@ -13,17 +13,16 @@ class StealthInput extends StatelessWidget {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Flexible(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: provider.entries.length,
-                itemBuilder: (context, index) {
-                  return StealthEntryCard(
-                    entry: provider.entries[index],
-                    index: index,
-                  );
-                },
-              ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: provider.entries.length,
+              itemBuilder: (context, index) {
+                return StealthEntryCard(
+                  entry: provider.entries[index],
+                  index: index,
+                );
+              },
             ),
             const SizedBox(height: 16),
             FilledButton.icon(
