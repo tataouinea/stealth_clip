@@ -45,61 +45,67 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 400),
-          child: Card(
-            margin: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      const Icon(
-                        Icons.security,
-                        size: 48,
-                        color: Colors.indigoAccent,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Stealth Clip',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onPanStart: (details) {
+        windowManager.startDragging();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Card(
+              margin: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      children: [
+                        const Icon(
+                          Icons.security,
+                          size: 48,
+                          color: Colors.indigoAccent,
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Securely store and copy sensitive text',
-                        style: TextStyle(
-                          color: Colors.grey.shade400,
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Stealth Clip',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 24),
-                      Consumer<StealthTextProvider>(
-                        builder: (context, provider, child) {
-                          return FilledButton.icon(
-                            onPressed: provider.addNewEntry,
-                            icon: const Icon(Icons.add),
-                            label: const Text('Add New Entry'),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 24),
-                    ],
-                  ),
-                ),
-                const Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(24, 0, 24, 24),
-                      child: StealthInput(),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Securely store and copy sensitive text',
+                          style: TextStyle(
+                            color: Colors.grey.shade400,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Consumer<StealthTextProvider>(
+                          builder: (context, provider, child) {
+                            return FilledButton.icon(
+                              onPressed: provider.addNewEntry,
+                              icon: const Icon(Icons.add),
+                              label: const Text('Add New Entry'),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 24),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  const Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(24, 0, 24, 24),
+                        child: StealthInput(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
