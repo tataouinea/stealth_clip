@@ -54,5 +54,6 @@ class SecureStorageService {
 
   Future<void> clearAll() async {
     await _storage.delete(key: _key);
+    await _storage.delete(key: _initialized_key);  // Also clear initialization flag
   }
 }
