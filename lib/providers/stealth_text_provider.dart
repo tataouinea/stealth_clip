@@ -4,29 +4,55 @@ import '../services/secure_storage_service.dart';
 
 class StealthTextProvider extends ChangeNotifier {
   final SecureStorageService _storage = SecureStorageService();
-  String _hiddenText = '';
-  bool _isTextSaved = false;
-
-  bool get isTextSaved => _isTextSaved;
-
-  Future<void> saveText(String text) async {
-    await _storage.saveText(text);
-    _hiddenText = text;
-    _isTextSaved = true;
+  List<StealthEntry> _entries = [];
+  
+  List<StealthEntry> get entries => _entries;
+  
+  StealthTextProvider() {
+    _loadEntries();
+  }
+  
+  Future<void> _loadEntries() async {
+    _entries = await _storage.getEntries();
+    if (_entries.isEmpty) {
+      // Add default entries
+      _entries = [
+        StealthEntry(label: 'Password', text: ''),
+        StealthEntry(label: 'API Key', text: ''),
+        StealthEntry(label: 'Secret Key', text: ''),
+      ];
+    }
     notifyListeners();
   }
 
-  Future<void> copyToClipboard() async {
-    final text = await _storage.getText();
-    if (text != null && text.isNotEmpty) {
+  Future<void> saveEntry(int index, String label, String text) async {
+    _entries[index] = StealthEntry(label: label, text: text);
+    await _storage.saveEntries(_entries);
+    notifyListeners();
+  }
+
+  Future<void> copyToClipboard(int index) async {
+    final text = _entries[index].text;
+    if (text.isNotEmpty) {
       await Clipboard.setData(ClipboardData(text: text));
     }
   }
 
-  Future<void> clearText() async {
-    await _storage.clearText();
-    _hiddenText = '';
-    _isTextSaved = false;
+  Future<void> clearEntry(int index) async {
+    _entries[index] = StealthEntry(label: _entries[index].label, text: '');
+    await _storage.saveEntries(_entries);
+    notifyListeners();
+  }
+
+  Future<void> addNewEntry() async {
+    _entries.add(StealthEntry(label: 'New Entry', text: ''));
+    await _storage.saveEntries(_entries);
+    notifyListeners();
+  }
+
+  Future<void> removeEntry(int index) async {
+    _entries.removeAt(index);
+    await _storage.saveEntries(_entries);
     notifyListeners();
   }
 }
