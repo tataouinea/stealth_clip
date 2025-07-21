@@ -47,4 +47,10 @@ class StealthTextProvider extends ChangeNotifier {
     await _storage.saveEntries(_entries);
     notifyListeners();
   }
+
+  Future<void> clearAllEntries() async {
+    await _storage.clearAll();
+    _entries = [];
+    notifyListeners();
+  }
 }
