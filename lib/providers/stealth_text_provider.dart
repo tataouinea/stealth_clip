@@ -1,14 +1,16 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../services/secure_storage_service.dart';
 
 class StealthTextProvider extends ChangeNotifier {
-  final SecureStorageService _storage = SecureStorageService();
+  late final SecureStorageService _storage;
   List<StealthEntry> _entries = [];
   
   List<StealthEntry> get entries => _entries;
   
-  StealthTextProvider() {
+  StealthTextProvider({SecureStorageService? storage}) {
+    _storage = storage ?? SecureStorageService(storage: const FlutterSecureStorage());
     _loadEntries();
   }
   
