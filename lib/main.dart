@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:stealth_clip/services/secure_storage_service.dart';
 import 'providers/stealth_text_provider.dart';
 import 'widgets/stealth_input.dart';
 
@@ -23,7 +25,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => StealthTextProvider(),
+      create: (_) => StealthTextProvider(
+          storage: SecureStorageService(storage: const FlutterSecureStorage())),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Stealth Clip',

@@ -19,9 +19,13 @@ class StealthEntry {
 }
 
 class SecureStorageService {
-  static const _storage = FlutterSecureStorage();
+  late final FlutterSecureStorage _storage;
   static const _key = 'stealth_entries';
   static const _initialized_key = 'initialized';
+
+  SecureStorageService({FlutterSecureStorage? storage}) {
+    _storage = storage ?? const FlutterSecureStorage();
+  }
 
   Future<void> _initializeDefaultEntries() async {
     final List<StealthEntry> defaultEntries = [
